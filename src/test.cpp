@@ -9,6 +9,7 @@
 * For defining custom types an example given below printing output std::ostream operator<< overload is optional 
 * but two with SerializedBufferStream >> and << is mendatory
 * just include jetc.hpp and use it 
+* @autor Sonu Aryan 
 **/
 struct Person {
 	std::string name;
