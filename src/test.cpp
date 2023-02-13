@@ -19,6 +19,7 @@ struct Person {
 	int houseNumber;
 	int carNumber;
 	std::vector<Person> favTeachers;
+	std::array<int, 2> twoFavNumber;
 
 	Person(std::string name, std::string favColor, std::string address, int age, int houseNumber, int carNumber) {
 		this->name = name;
@@ -35,18 +36,18 @@ struct Person {
 	
 	//Mendatory implementation
 	friend jetc::SerializedBufferStream& operator<<(jetc::SerializedBufferStream& out, Person& person) {
-		out << person.name << person.favColor << person.address << person.age << person.houseNumber << person.carNumber<<person.favTeachers;
+		out << person.name << person.favColor << person.address << person.age << person.houseNumber << person.carNumber<<person.favTeachers<<person.twoFavNumber;
 		return out;
 	}
 	//Mendatory implementation
 	friend jetc::SerializedBufferStream& operator>>(jetc::SerializedBufferStream& in, Person& person) {
-		in >> person.name >> person.favColor >> person.address >> person.age >> person.houseNumber >> person.carNumber>>person.favTeachers;
+		in >> person.name >> person.favColor >> person.address >> person.age >> person.houseNumber >> person.carNumber>>person.favTeachers>>person.twoFavNumber;
 		return in;
 	}
 
 	//Optional for output
 	friend std::ostream& operator<<(std::ostream& ostream, Person& person) {
-		ostream << "Person{name:" << person.name << ",favColor:" << person.favColor << ",address:" << person.address << ",age:" << person.age << ",houseNumber:" << person.houseNumber << ",carNumber:" << person.carNumber<<",favTeachers:"<<person.favTeachers << "}";
+		ostream << "Person{name:" << person.name << ",favColor:" << person.favColor << ",address:" << person.address << ",age:" << person.age << ",houseNumber:" << person.houseNumber << ",carNumber:" << person.carNumber<<",favTeachers:"<<person.favTeachers<<",twoFavNumber:["<<person.twoFavNumber.front()<<","<<person.twoFavNumber.back() << "]}";
 		return ostream;
 	}
 	//Optional for any other overloads
@@ -65,6 +66,7 @@ struct Person {
 		}
 		return ostream;
 	}
+	
 };
 
 int main()
@@ -77,17 +79,35 @@ int main()
 		sonu.age = 19;
 		sonu.houseNumber = 71;
 		sonu.carNumber = 3778;
-		std::vector<Person> favTeachers= { Person("Walter Levin","Don't know","I think Near MIT",87,-1,-1)};
+		std::vector<Person> favTeachers = { Person("Walter Levin","Don't know","I think Near MIT",87,-1,-1) };
 		sonu.favTeachers = favTeachers;
+		sonu.twoFavNumber = {22,21};
 		std::cout << "Original" << std::endl;
 		std::cout << sonu << std::endl;
 
-		jetc::SerializedBufferStream sbs=jetc::serialize(sonu);
+		jetc::SerializedBufferStream sbs = jetc::serialize(sonu);
 
 
 		Person result = jetc::deserialize<Person>(sbs);
 		std::cout << "Recovered" << std::endl;
 		std::cout << result << std::endl;
+
+		std::array<int, 65> kk{ 65,66,66,67 };
+
+		jetc::SerializedBufferStream bufferOut = jetc::serialize(kk);
+
+		std::cout << bufferOut << std::endl;
+
+		std::array<int, 65> recovery;
+
+		recovery = jetc::deserialize<decltype(recovery)>(bufferOut);
+
+		for (int element : recovery) {
+			std::cout << element << std::endl;
+		}
+
+
+
 	}
 	catch (std::runtime_error& e) {
 		std::cerr << e.what() << std::endl;
