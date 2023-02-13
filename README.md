@@ -1,6 +1,6 @@
 # jetc
 
-Supported type of short,float,char,bool,int,double,long,long long,std::string,std::map,std::list,std::pair,std::vector
+Supported type of short,float,char,bool,int,double,long,long long,std::string,std::map,std::list,std::pair,std::vector,std::array
 from example in src/test.cpp
 
 * Combine any possibility with given above supported types
