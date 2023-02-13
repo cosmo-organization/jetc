@@ -206,7 +206,8 @@ namespace jetc {
 
 
     SerializedBufferStream& operator<<(SerializedBufferStream& out, std::string objIn) {
-        int byteLen = objIn.size() + 1;
+        int byteLen = (int)objIn.size();
+        byteLen += 1;
         byteLen &= 0xFFFFFFFF;
         out << byteLen;
         for (int i = 0; i < byteLen; i++) {

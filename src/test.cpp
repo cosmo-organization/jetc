@@ -29,7 +29,9 @@ struct Person {
 		this->carNumber = carNumber;
 	}
 
-	Person(){}
+	Person(){
+		
+	}
 	
 	//Mendatory implementation
 	friend jetc::SerializedBufferStream& operator<<(jetc::SerializedBufferStream& out, Person& person) {
@@ -51,7 +53,7 @@ struct Person {
 	friend std::ostream& operator<<(std::ostream& ostream, std::vector<Person>& vecs) {
 		ostream << "[";
 		if (!vecs.empty()) {
-			int len = vecs.size();
+			int len =(int) vecs.size();
 			len -= 1;
 			for (int i = 0; i < len; i++) {
 				ostream << vecs.at(i) << ",";
