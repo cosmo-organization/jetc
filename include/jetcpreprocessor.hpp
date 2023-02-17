@@ -6,17 +6,8 @@
 #define MINVER 0
 #define PATCHVER 0
 
-#define MLITTLE_ENDIAN 0
-#define MBIG_ENDIAN 1
 
-#if ENDIANNESS_LE == 1
-#define MBYTE_ORDER MLITTLE_ENDIAN
-#elif ENDIANNESS_BE ==  1
-#define MBYTE_ORDER MBIG_ENDIAN
-#endif
-
-
-#if MBYTE_ORDER==MLITTLE_ENDIAN
+#if defined(MLITTLE_ENDIAN)
 #define OCTAPACK(type,input,output)\
     union{\
         type objIn;\
