@@ -110,7 +110,11 @@ namespace jetc {
         in >> size;
         if (Size != size) {
             char errorBuff[100];
+            #if defined(_MSC_VER)
             sprintf_s(errorBuff, "expected array size:%zd but found %d\n",Size,size);
+            #else
+            sprintf(errorBuff,"expected array size:%zd but found %d\n",Size,size);
+            #endif
             throw std::runtime_error(errorBuff); 
         }
         for (int i = 0; i < Size; i++) {
@@ -135,7 +139,11 @@ namespace jetc {
 
         if (major != MAJVER) {
             char msgBuff[100];
+            #if defined(_MSC_VER)
             sprintf_s(msgBuff, "Invalid version! expected %d or lower but found %d", MAJVER, major);
+            #else
+            sprintf(msgBuff,"Invalid version! expected %d or lower but found %d",MAJVER,minor);
+            #endif
             throw std::runtime_error(msgBuff);
         }
 
