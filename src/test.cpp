@@ -69,6 +69,9 @@ struct Person {
 	
 };
 
+
+
+
 int main()
 {
 	try {
@@ -82,15 +85,12 @@ int main()
 		std::vector<Person> favTeachers = { Person("Walter Levin","Don't know","I think Near MIT",87,-1,-1) };
 		sonu.favTeachers = favTeachers;
 		sonu.twoFavNumber = {22,21};
-		std::cout << "Original" << std::endl;
-		std::cout << sonu << std::endl;
-
+		
 		jetc::SerializedBufferStream sbs = jetc::serialize(sonu);
 
 
 		Person result = jetc::deserialize<Person>(sbs);
-		std::cout << "Recovered" << std::endl;
-		std::cout << result << std::endl;
+
 
 		std::array<int, 65> kk{ 65,66,66,67 };
 
@@ -106,10 +106,9 @@ int main()
 			std::cout << element << std::endl;
 		}
 
-
-
 	}
 	catch (std::runtime_error& e) {
 		std::cerr << e.what() << std::endl;
 	}
+
 }
