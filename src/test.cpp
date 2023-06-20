@@ -84,7 +84,7 @@ int main()
 		sonu.carNumber = 3778;
 		std::vector<Person> favTeachers = { Person("Walter Levin","Don't know","I think Near MIT",87,-1,-1) };
 		sonu.favTeachers = favTeachers;
-		sonu.twoFavNumber = {22,21};
+		sonu.twoFavNumber = {22,30};
 		
 		jetc::SerializedBufferStream sbs = jetc::serialize(sonu);
 
